@@ -16,23 +16,38 @@
         </details>
         <br>
         <button id="start">START</button>
+        
+
+        
     </section>
 
     <section id="game-page">
         <div id="header">
             <h1>Question 1</h1>
-            <h1>00:20</h1>
+            <h1 id="time">00:20</h1>
         </div>
+
         <h1 id="question"></h1>
+
         <div id="options">
-            <p></p>
-            <p></p>
-            <p></p>
-            <p></p>
+            <input type="radio" id="A" name="A" value="A">
+            <label for="A"></label>
+
+            <input type="radio" id="B" name="B" value="B">
+            <label for="B"></label>
+
+            <input type="radio" id="C" name="C" value="C">
+            <label for="C"></label>
+
+            <input type="radio" id="D" name="D" value="D">
+            <label for="D"></label>
+
+            <button class="next" id="next">Next</button>
         </div>
         <div id="bool">
-            <button>True</button>
-            <button>False</button>
+            <button id="true">True</button>
+            <button id="false">False</button>
+            <button class="next">Next</button>
         </div>
     </section>
     <script src="script.js"></script>
