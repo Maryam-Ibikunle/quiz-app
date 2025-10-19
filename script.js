@@ -34,11 +34,19 @@ function showNextPage(list){
     let i =0
     displayQuiz(list[i])
     i++
-    // for (let i=0; i<5; i++){
-    //     displayQuiz(list[i])
-    //     document.getElementById("next").addEventListener('click', click)
-    // }
     let counter;
+    let timeLeft = 20;
+    counter = setInterval(()=>{
+        timeLeft--
+        time.innerHTML = `00:${String(timeLeft).padStart(2,0)}`
+        if (timeLeft <=5)
+            time.style.color = "red"
+        if (timeLeft == 0)
+            clearInterval(counter)
+            //endgame()
+    },1000)
+    
+    
     nextButton.forEach((btn)=>{btn.addEventListener('click',()=>{
         clearInterval(counter)
         if (i<list.length){
@@ -46,9 +54,8 @@ function showNextPage(list){
             i++
             let timeLeft = 20;
             counter = setInterval(()=>{
-                
-                time.innerHTML = `00:${String(timeLeft).padStart(2,0)}`
                 timeLeft--
+                time.innerHTML = `00:${String(timeLeft).padStart(2,0)}`
                 if (timeLeft <=5)
                     time.style.color = "red"
                 if (timeLeft == 0)
