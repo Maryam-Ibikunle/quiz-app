@@ -23,7 +23,7 @@
 
     <section id="game-page">
         <div id="header">
-            <h1>Question 1</h1>
+            <h1 id="number">Question 1</h1>
             <h1 id="time">00:20</h1>
         </div>
 
@@ -49,13 +49,26 @@
             <label for="D"></label>
             </div><br>
 
+            <details id="correc">
+                <summary>Check the correct answer</summary>
+                <p id="correct">Pick your answer first</p>
+            </details>
+
             <button class="next" id="next">Next</button>
         </div>
         <div id="bool">
-            <button id="true">True</button>
-            <button id="false">False</button>
+            <button id="true" class="click">True</button>
+            <button id="false" class="click">False</button>
             <button class="next">Next</button>
         </div>
+
+        
+    </section>
+    <section id="last-page">
+        <br>
+        <h1>Thank you for playing my Quiz Game<br>Your score is: </h1>
+        <h1 id="score"></h1>
+        <button id="replay">REPLAY</button>
     </section>
     <script src="script.js"></script>
 </body>
