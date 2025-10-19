@@ -31,9 +31,7 @@ async function asyncFunct(){
     .then(data => {
         const [a,b,c,d,e,f,g,h,i,j] = data.results
         const allQuestions = [a,b,c,d,e,f,g,h,i,j]
-        // for (let i=0; i<5; i++){
-        //     showNextPage(allQuestions[i])
-        // } 
+        
         showNextPage(allQuestions)
         console.log(a.question)
     }
