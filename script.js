@@ -4,8 +4,9 @@ const question = document.getElementById('question')
 const optionList = document.getElementById('options')
 const options = optionList.querySelectorAll("p")
 const boolButton = document.getElementById("bool")
-gamePage.style.display = 'none'
 const startButton = document.getElementById("start")
+const time = document.getElementById('time')
+gamePage.style.display = 'none'
 startButton.addEventListener('click', asyncFunct)
 
 async function asyncFunct(){
@@ -42,6 +43,17 @@ function displayQuiz(object){
         boolButton.style.display = "none"
         multiple(object)
     }
+    let timeLeft = 20;
+    const counter = setInterval(()=>{
+        timeLeft--
+        time.innerHTML = `00:${String(timeLeft).padStart(2,0)}`
+        if (timeLeft <=5)
+            time.style.color = "red"
+        if (timeLeft == 0){
+            clearInterval(counter)
+            // endGame()
+        }
+    },1000)
 }
 
 function boolean(object){
