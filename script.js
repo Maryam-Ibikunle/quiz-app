@@ -1,7 +1,8 @@
 const welcomePage = document.getElementById("welcome")
 const gamePage = document.getElementById('game-page')
 const question = document.getElementById('question')
-const options = document.getElementById('options')
+const optionList = document.getElementById('options')
+const options = optionList.querySelectorAll("p")
 gamePage.style.display = 'none'
 const startButton = document.getElementById("start")
 startButton.addEventListener('click', asyncFunct)
@@ -30,7 +31,7 @@ function showNextPage(object){
 
 
 function displayQuiz(object){
-    question.innerHTML = object.question;
+    question.innerText = object.question;
     if (object.type == "boolean"){
         boolean(object)
     }else if (object.type == "multiple"){
@@ -39,9 +40,19 @@ function displayQuiz(object){
 }
 
 function boolean(object){
-    options.innerHTML = (object.correct_answer + " " + object.incorrect_answers)
+    document.getElementById('options').display = "none"
+    if (object.correct_answer == "True"){
+        console.log("True")
+    }
 }
 
 function multiple(object){
-    options. innerHTML = (object.correct_answer + " " + object.incorrect_answers)
+    document.getElementById('bool').display = "none"
+    const myOptions = object.incorrect_answers
+    myOptions.push(object.correct_answer)
+    myOptions.forEach((option, index) => {
+        if (options[index])
+            options[index].innerText = option
+    });
+ 
 }
