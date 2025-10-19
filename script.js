@@ -5,8 +5,10 @@ const optionList = document.getElementById('options')
 const options = optionList.querySelectorAll("p")
 const boolButton = document.getElementById("bool")
 const startButton = document.getElementById("start")
+const nextButton = document.querySelectorAll('.next')
 const time = document.getElementById('time')
 gamePage.style.display = 'none'
+
 startButton.addEventListener('click', asyncFunct)
 
 async function asyncFunct(){
@@ -19,45 +21,64 @@ async function asyncFunct(){
     .then(data => {
         const [a,b,c,d,e] = data.results
         const allQuestions = [a,b,c,d,e]
-        for (let i=0; i<5; i++){
-            showNextPage(allQuestions[i])
-        } 
+        // for (let i=0; i<5; i++){
+        //     showNextPage(allQuestions[i])
+        // } 
+        showNextPage(allQuestions)
         console.log(a.question)
     }
     )
     .catch(err => console.log("ERROR: ", err))}
 
-function showNextPage(object){
-    
-        displayQuiz(object)
+function showNextPage(list){
+    let i =0
+    displayQuiz(list[i])
+    i++
+    // for (let i=0; i<5; i++){
+    //     displayQuiz(list[i])
+    //     document.getElementById("next").addEventListener('click', click)
+    // }
+    let counter;
+    nextButton.forEach((btn)=>{btn.addEventListener('click',()=>{
+        clearInterval(counter)
+        if (i<list.length){
+            displayQuiz(list[i])
+            i++
+            let timeLeft = 20;
+            counter = setInterval(()=>{
+                
+                time.innerHTML = `00:${String(timeLeft).padStart(2,0)}`
+                timeLeft--
+                if (timeLeft <=5)
+                    time.style.color = "red"
+                if (timeLeft == 0)
+                    clearInterval(counter)
+                    //endgame()
+            },1000)
+            
+        }
+    })})}
+
     // }else{
     //     showResult()
-    }
 
 
 function displayQuiz(object){
     question.innerText = object.question;
     if (object.type == "boolean"){
+        optionList.style.display = "none"
         boolean(object)
     }else if (object.type == "multiple"){
         boolButton.style.display = "none"
         multiple(object)
     }
-    let timeLeft = 20;
-    const counter = setInterval(()=>{
-        timeLeft--
-        time.innerHTML = `00:${String(timeLeft).padStart(2,0)}`
-        if (timeLeft <=5)
-            time.style.color = "red"
-        if (timeLeft == 0){
-            clearInterval(counter)
-            // endGame()
-        }
-    },1000)
+    
+    
+        
+    // clearInterval(counter)
 }
 
 function boolean(object){
-    optionList.style.display = "none"
     boolButton.style.display = "block"
     if (object.correct_answer == "True"){
         console.log("True")
@@ -77,5 +98,5 @@ function multiple(object){
         if (options[index])
             options[index].innerText = option
     });
- 
 }
+
