@@ -10,6 +10,7 @@ const startButton = document.getElementById("start")
 const nextButton = document.querySelectorAll('.next')
 const replayButton = document.getElementById("replay")
 const time = document.getElementById('time')
+
 gamePage.style.display = 'none'
 let score = 0;
 
@@ -33,54 +34,67 @@ async function asyncFunct(){
         const allQuestions = [a,b,c,d,e,f,g,h,i,j]
         
         showNextPage(allQuestions)
-        console.log(a.question)
     }
     )
-    .catch(err => console.log("ERROR: ", err))}
+    .catch(err => console.log("ERROR: ", err))
+}
 
 function showNextPage(list){
     let i = 0
     displayQuiz(list[i])
+
     let counter;
     let timeLeft = 20;
+    clearInterval(counter)
     counter = setInterval(()=>{
         timeLeft--
         time.innerHTML = `00:${String(timeLeft).padStart(2,0)}`
         if (timeLeft <=5)
             time.style.color = "red"
         if (timeLeft == 0){
+            displayScore()
             clearInterval(counter)
-            displayScore()}
+            time.style.color = "rgb(108, 35, 127)"
+            time.innerText = "00:20"
+        }
     },1000)
     
-    
     nextButton.forEach((btn)=>{btn.addEventListener('click',()=>{
-        console.log("index"+i)
         clearInterval(counter)
         document.getElementById('number').textContent = `Question ${i+2}`
-
         i++
-        if (i==10)displayScore()
+        if (i==10){
+            displayScore()
+            time.innerText = "00:20"
+            time.style.color = "rgb(108, 35, 127)"
+            clearInterval(counter)
+        }
         if (i<list.length){
             displayQuiz(list[i])
             
             let timeLeft = 20;
+            time.style.color = "rgb(108, 35, 127)"
             time.innerText = "00:20"
             counter = setInterval(()=>{
                 timeLeft--
                 time.innerText = `00:${String(timeLeft).padStart(2,0)}`
+                if (timeLeft > 5)
+                    time.style.color = "rgb(108, 35, 127)"
                 if (timeLeft <=5)
                     time.style.color = "red"
-                if (timeLeft == 0)
+                if (timeLeft == 0){
                     clearInterval(counter)
+                    time.innerText = "00:20"
+                    time.style.color = "rgb(108, 35, 127)"
+                    displayScore()
+                }
             },1000)
         }
-        
-    })})}
+    })})
+}
 
     
-function displayQuiz(object){
-    
+function displayQuiz(object){    
     currentQuestion = object;
     question.innerText = object.question;
     if (object.type == "boolean"){
@@ -95,12 +109,12 @@ function displayQuiz(object){
 
 function boolean(object){
     boolButton.style.display = "block"
-    if (object.correct_answer == "True"){
-        console.log("True")
-    }
+    if (object.correct_answer == "True")
+        score++
 }
 
 function multiple(object){
+    
     optionList.style.display = "block"
     const myOptions = object.incorrect_answers
     if (myOptions[0] == Array){
@@ -109,18 +123,19 @@ function multiple(object){
         myOptions.push("Bonus")
     }
     const index = Math.floor(Math.random()*4)
-    console.log(index)
+    console.log(index) //my expo for the right answer
     myOptions.splice(index, 0,(object.correct_answer))
     myOptions.forEach((option, index) => {
         if (options[index])
             options[index].innerText = option
-    });
+    })
 }
+
 optionList.addEventListener('change', (e) => {
-    const radio = e.target;
-    if(radio.name !== "option") return;
-    const label = document.querySelector(`label[for="${radio.id}"]`);
-    if(!label) return;
+    const radio = e.target
+    if(radio.name !== "option") return
+    const label = document.querySelector(`label[for="${radio.id}"]`)
+    if(!label) return
     const selected = label.textContent;
     if(selected === currentQuestion.correct_answer){
         score++;
