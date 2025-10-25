@@ -108,9 +108,31 @@ function displayQuiz(object){
 
 
 function boolean(object){
+    currentQuestion = object;
     boolButton.style.display = "block"
-    if (object.correct_answer == "True")
-        score++
+    console.log(currentQuestion.correct_answer)
+    document.querySelectorAll('.click').forEach((btn)=>{btn.addEventListener('click', ()=>{
+        const selected = btn.textContent
+        btn.style.color = "black"
+        btn.disabled = true
+        if(selected === currentQuestion.correct_answer){
+                score++;
+            }else{
+                document.getElementById("correct").style.color = "red"
+                document.getElementById("correct").style.fontWeight = "bold"
+                document.getElementById("correct").innerText = currentQuestion.correct_answer
+            }
+    })})
+    // const selected = document.querySelectorAll('.click').textContent;
+    // console.log(currentQuestion.correct_answer)
+    // if(selected === currentQuestion.correct_answer){
+    //     score++;
+    // }else{
+    //     document.getElementById("correct").style.color = "red"
+    //     document.getElementById("correct").style.fontWeight = "bold"
+    //     document.getElementById("correct").innerText = currentQuestion.correct_answer
+    // }
+    
 }
 
 function multiple(object){
@@ -133,6 +155,7 @@ function multiple(object){
 
 optionList.addEventListener('change', (e) => {
     const radio = e.target
+    
     if(radio.name !== "option") return
     const label = document.querySelector(`label[for="${radio.id}"]`)
     if(!label) return
