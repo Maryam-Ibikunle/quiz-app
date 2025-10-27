@@ -155,7 +155,6 @@ function multiple(object){
 
 optionList.addEventListener('change', (e) => {
     const radio = e.target
-    
     if(radio.name !== "option") return
     const label = document.querySelector(`label[for="${radio.id}"]`)
     if(!label) return
