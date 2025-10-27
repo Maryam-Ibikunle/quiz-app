@@ -44,6 +44,11 @@ button:hover{
     background-color: rgba(73, 26, 85, 0.322);
     color: black;
 }
+button:disabled {
+    color: inherit;
+    pointer-events: none;
+    cursor: not-allowed;
+}
 .click:focus{
     background-color: black;
     outline: none;
