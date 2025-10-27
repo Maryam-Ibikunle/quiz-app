@@ -136,6 +136,9 @@ function boolean(object){
 }
 
 function multiple(object){
+    document.getElementById("correct").style.color = "black"
+    document.getElementById("correct").style.fontWeight = "normal"
+    document.getElementById("correct").innerText = "Pick an answer first"
     document.querySelectorAll('input[name="option"]').forEach(radio => {
         radio.checked = false;})
     optionList.style.display = "block"
@@ -158,6 +161,9 @@ optionList.addEventListener('change', (e) => {
     const selected = label.textContent;
     if(selected === currentQuestion.correct_answer){
         score++;
+        document.getElementById("correct").style.color = "green"
+        document.getElementById("correct").style.fontWeight = "bold"
+        document.getElementById("correct").innerText = currentQuestion.correct_answer
     }else{
         document.getElementById("correct").style.color = "red"
         document.getElementById("correct").style.fontWeight = "bold"
