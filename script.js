@@ -136,14 +136,10 @@ function boolean(object){
 }
 
 function multiple(object){
-    
+    document.querySelectorAll('input[name="option"]').forEach(radio => {
+        radio.checked = false;})
     optionList.style.display = "block"
     const myOptions = object.incorrect_answers
-    if (myOptions[0] == Array){
-        myOptions.push("Bonus")
-        myOptions.push("Bonus")
-        myOptions.push("Bonus")
-    }
     const index = Math.floor(Math.random()*4)
     console.log(index) //my expo for the right answer
     myOptions.splice(index, 0,(object.correct_answer))
@@ -155,6 +151,7 @@ function multiple(object){
 
 optionList.addEventListener('change', (e) => {
     const radio = e.target
+    
     if(radio.name !== "option") return
     const label = document.querySelector(`label[for="${radio.id}"]`)
     if(!label) return
