@@ -147,7 +147,7 @@ function multiple(object){
     myOptions.splice(index, 0,(object.correct_answer))
     myOptions.forEach((option, index) => {
         if (options[index])
-            options[index].innerText = option
+            options[index].innerHTML = option
     })
 }
 
@@ -162,11 +162,11 @@ optionList.addEventListener('change', (e) => {
         score++;
         document.getElementById("correct").style.color = "green"
         document.getElementById("correct").style.fontWeight = "bold"
-        document.getElementById("correct").innerText = currentQuestion.correct_answer
+        document.getElementById("correct").innerHTML = currentQuestion.correct_answer
     }else{
         document.getElementById("correct").style.color = "red"
         document.getElementById("correct").style.fontWeight = "bold"
-        document.getElementById("correct").innerText = currentQuestion.correct_answer
+        document.getElementById("correct").innerHTML = currentQuestion.correct_answer
     }
     console.log("score:", score);
     console.log("Selected:", selected);
