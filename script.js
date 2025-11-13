@@ -96,7 +96,7 @@ function showNextPage(list){
     
 function displayQuiz(object){    
     currentQuestion = object;
-    question.innerText = object.question;
+    question.innerHTML = object.question;
     if (object.type == "boolean"){
         optionList.style.display = "none"
         boolean(object)
